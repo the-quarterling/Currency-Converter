@@ -1,0 +1,25 @@
+
+<form [formGroup]="converterForm">
+    
+    <label for="amount">Amount</label>
+    <input type="number" formControlName="amount" id="amount" />
+
+    <label for="currencyFrom">From:</label>
+    <select formControlName="currencyFrom" id="currencyFrom">
+        @for (option of currencyArray; track $index) {
+            <option value="{{option.short_code}}">{{option.short_code}} - {{option.name}}</option>
+        }
+    </select>
+
+    <label for="currencyTo">To:</label>
+    <select formControlName="currencyTo" id="currencyTo">
+        @for (option of currencyArray; track $index) {
+            <option value="{{option.short_code}}">{{option.short_code}} - {{option.name}}</option>
+        }
+    </select>
+
+    <button type="submit" (click)="convert()">Convert currency</button>
+</form>
+
+<!-- Ensure this is using the details from the currencyTo to display correctly -->
+<div>{{convertedAmount}}</div>
