@@ -2,7 +2,7 @@
 <form [formGroup]="converterForm">
     
     <label for="amount">Amount</label>
-    <input type="number" formControlName="amount" id="amount" />
+    <input type="number" formControlName="amount" id="amount" min="1"/>
 
     <label for="currencyFrom">From:</label>
     <select formControlName="currencyFrom" id="currencyFrom">

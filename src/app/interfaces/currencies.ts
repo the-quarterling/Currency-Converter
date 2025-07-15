@@ -11,13 +11,22 @@ export interface Currency {
   thousands_separator: string;
 };
 
-export interface CurrencyConversion {
-  response: {
+export interface CurrencyConversionResponse {
     value: number;
     timestamp: number;
     date: string;
     from: string;
     to: string;
     amount: number;
-  };
+};
+
+export interface CurrencyConversion {
+    meta: any;
+    response: any;
+    timestamp: number;
+    date: string;
+    from: string;
+    to: string;
+    amount: number;
+    value: number;
 };
