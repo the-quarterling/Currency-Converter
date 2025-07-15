@@ -7,16 +7,23 @@ import { Currency } from './interfaces/currencies';
 import { GetCurrenciesService } from './services/get-currencies';
 import { FormElement } from "./components/currency-converter-form/currency-converter-form";
 
+import { MatCardModule } from '@angular/material/card';
+
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, FormElement],
+  imports: [
+    RouterOutlet,
+    CommonModule,
+    FormElement,
+    MatCardModule
+  ],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
 
 export class App implements OnInit {
   currencyArray: Currency[] = [];
-    
+
   convertedAmount = 0;
 
   protected readonly title = signal('convert-o-matic');
@@ -26,7 +33,7 @@ export class App implements OnInit {
   ngOnInit(): void {
     this.loadCurrencies();
   }
-  
+
   loadCurrencies(): void {
     this.getCurrenciesService.getCurrencies().subscribe(currencies => {
       //convert to array

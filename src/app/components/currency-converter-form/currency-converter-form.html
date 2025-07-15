@@ -1,25 +1,35 @@
-
 <form [formGroup]="converterForm">
-    
-    <label for="amount">Amount</label>
-    <input type="number" formControlName="amount" id="amount" min="1"/>
+    <div>
+        <mat-form-field>
+            <mat-label for="amount">Amount</mat-label>
+            <input type="number" formControlName="amount" id="amount" min="1" matInput />
+        </mat-form-field>
+    </div>
 
-    <label for="currencyFrom">From:</label>
-    <select formControlName="currencyFrom" id="currencyFrom">
-        @for (option of currencyArray; track $index) {
-            <option value="{{option.short_code}}">{{option.short_code}} - {{option.name}}</option>
-        }
-    </select>
+    <div>
+        <mat-form-field>
+            <mat-label for="currencyFrom">From:</mat-label>
+            <mat-select formControlName="currencyFrom" id="currencyFrom">
+                @for (option of currencyArray; track $index) {
+                <mat-option value="{{option.short_code}}">{{option.short_code}} - {{option.name}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
 
-    <label for="currencyTo">To:</label>
-    <select formControlName="currencyTo" id="currencyTo">
-        @for (option of currencyArray; track $index) {
-            <option value="{{option.short_code}}">{{option.short_code}} - {{option.name}}</option>
-        }
-    </select>
+        <mat-form-field>
+            <mat-label for="currencyTo">To:</mat-label>
+            <mat-select formControlName="currencyTo" id="currencyTo">
+                @for (option of currencyArray; track $index) {
+                <mat-option value="{{option.short_code}}">{{option.short_code}} - {{option.name}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+    </div>
 
-    <button type="submit" (click)="convert()">Convert currency</button>
+
+    <button mat-stroked-button type="submit" (click)="convert()">Convert currency</button>
 </form>
 
-<!-- Ensure this is using the details from the currencyTo to display correctly -->
-<div>{{convertedAmount}}</div>
+@if(convertedAmount > 0){
+<div>{{convertedAmount | currency: convertedCurrency: 'symbol' }}</div>
+}

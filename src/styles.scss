@@ -2,3 +2,20 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.mat-mdc-form-field .mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control {
+    color: #000 !important;
+}
+
+.mat-mdc-form-field .mat-mdc-floating-label {
+    color: #666 !important;
+}
+
+.mat-mdc-select-value-text {
+    color: #000 !important;
+}
+
+.mat-mdc-select-arrow {
+    color: #000 !important;
+}
