@@ -1,7 +1,16 @@
 <main class="main">
   <div class="content">
-      <h1>Convert-o-matic</h1>
+    <mat-card appearance="outlined">
+      <h1 mat-card-header>Convert-o-matic</h1>
+      <img mat-card-image src="world.png" alt="an outline drawing of the world"/>
+      @if(errorMessage) {
+          <div class="error-message">
+              {{ errorMessage }}
+          </div>
+      }
       <app-currency-converter-form [currencyArray]="currencyArray" />
+    </mat-card>
+
   </div>
 </main>
 

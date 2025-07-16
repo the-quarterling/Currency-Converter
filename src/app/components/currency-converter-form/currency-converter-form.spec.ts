@@ -1,13 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { FormElement } from './currency-converter-form';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { GetConversionService } from '../../services/get-conversion';
 
 describe('FormElement', () => {
   let component: FormElement;
   let fixture: ComponentFixture<FormElement>;
-  let mockService: any; 
+  let mockService: any;
 
   beforeEach(async () => {
     mockService = {
@@ -58,5 +58,22 @@ describe('FormElement', () => {
     component.convert();
 
     expect(mockService.getConversion).toHaveBeenCalled();
+  });
+
+  it('should show an error message if there is an issue with the API call', () => {
+    const errorMessage = 'Failed to fetch conversion';
+    const mockError = new Error(errorMessage);
+
+    if (!jasmine.isSpy(component['convertCurrency'].getConversion)) {
+      spyOn(component['convertCurrency'], 'getConversion');
+    }
+
+    (component['convertCurrency'].getConversion as jasmine.Spy).and.returnValue(
+      throwError(() => mockError)
+    );
+
+    component.convert();
+
+    expect(component.errorMessage).toBe(errorMessage);
   });
 });

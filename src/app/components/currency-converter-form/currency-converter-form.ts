@@ -36,8 +36,12 @@ export class FormElement {
   @Input() currencyArray: Currency[] = [];
 
   private readonly convertCurrency = inject(GetConversionService);
-  convertedAmount = 0;
-  convertedCurrency = '';
+  
+  errorMessage: string | null = null;
+  convertedAmount: number = 0;
+  convertedCurrency: string = '';
+  originalAmount: number = 0;
+  originalCurrency: string = '';
 
   converterForm: FormGroup = new FormGroup({
     amount: new FormControl(1),
@@ -51,11 +55,18 @@ export class FormElement {
     const to = formValue.currencyTo;
     const amount = formValue.amount;
 
-    this.convertCurrency.getConversion(from, to, amount)
-      .subscribe((data: CurrencyConversion) => {
+    this.errorMessage = null; 
+
+    this.convertCurrency.getConversion(from, to, amount).subscribe({
+      next: (data: CurrencyConversion) => {
         this.convertedAmount = data.response.value;
         this.convertedCurrency = data.response.to;
+        this.originalAmount = amount;
+        this.originalCurrency = from;
       },
-      );
+      error: (error) => {
+        this.errorMessage = error.message; 
+      }
+    });
   }
 }

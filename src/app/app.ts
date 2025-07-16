@@ -24,7 +24,8 @@ import { MatCardModule } from '@angular/material/card';
 export class App implements OnInit {
   currencyArray: Currency[] = [];
 
-  convertedAmount = 0;
+  convertedAmount: number = 0;
+  errorMessage: string | null = null;
 
   protected readonly title = signal('convert-o-matic');
 
@@ -35,9 +36,16 @@ export class App implements OnInit {
   }
 
   loadCurrencies(): void {
-    this.getCurrenciesService.getCurrencies().subscribe(currencies => {
-      //convert to array
-      this.currencyArray = Object.values(currencies);
-    })
+    this.errorMessage = null; 
+
+    this.getCurrenciesService.getCurrencies().subscribe({
+      next: (currencies) => {
+        this.currencyArray = Object.values(currencies);
+      },
+      error: (error) => {
+        this.errorMessage = error.message; 
+        this.currencyArray = [];
+      }
+    });
   }
 }

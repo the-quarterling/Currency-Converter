@@ -1,4 +1,23 @@
 <form [formGroup]="converterForm">
+    @if(convertedAmount > 0){
+        <mat-form-field>
+            <mat-label for="convertedAmount">Converted Amount</mat-label>
+            <input 
+                matInput 
+                readonly 
+                type="text" 
+                id="convertedAmount" 
+                min="1" 
+                value="{{originalAmount | currency: originalCurrency: 'symbol' }} = {{convertedAmount | currency: convertedCurrency: 'symbol' }}" />
+        </mat-form-field>
+    }
+
+    @if(errorMessage) {
+        <div class="error-message">
+            {{ errorMessage }}
+        </div>
+    }
+
     <div>
         <mat-form-field>
             <mat-label for="amount">Amount</mat-label>
@@ -15,7 +34,9 @@
                 }
             </mat-select>
         </mat-form-field>
+    </div>
 
+    <div>
         <mat-form-field>
             <mat-label for="currencyTo">To:</mat-label>
             <mat-select formControlName="currencyTo" id="currencyTo">
@@ -29,7 +50,3 @@
 
     <button mat-stroked-button type="submit" (click)="convert()">Convert currency</button>
 </form>
-
-@if(convertedAmount > 0){
-<div>{{convertedAmount | currency: convertedCurrency: 'symbol' }}</div>
-}

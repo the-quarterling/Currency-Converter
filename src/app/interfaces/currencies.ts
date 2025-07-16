@@ -21,8 +21,11 @@ export interface CurrencyConversionResponse {
 };
 
 export interface CurrencyConversion {
-    meta: any;
-    response: any;
+    meta: {
+      code: number,
+      disclaimer: string
+    },
+    response: CurrencyConversionResponse;
     timestamp: number;
     date: string;
     from: string;
